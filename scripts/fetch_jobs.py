@@ -39,6 +39,9 @@ DENYLIST = [
     "junior", "júnior", "jr",
     "pleno",
     "compliance",
+    "auxiliar",
+    "assistente",
+    "analista",
 ]
 
 # Palavras-chave que indicam FIT com o perfil do Vinicius
