@@ -1,0 +1,38 @@
+name: Atualizar Vagas
+
+on:
+  schedule:
+    # Roda todo dia as 8h e 14h (horario de Brasilia = UTC-3)
+    - cron: "0 11 * * 1-5"  # 8h BRT, seg-sex
+    - cron: "0 17 * * 1-5"  # 14h BRT, seg-sex
+  workflow_dispatch: # permite rodar manualmente
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-jobs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install requests beautifulsoup4
+
+      - name: Buscar vagas
+        run: python scripts/fetch_jobs.py
+
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Atualizar vagas - $(date +'%d/%m/%Y %H:%M')"
+          git push

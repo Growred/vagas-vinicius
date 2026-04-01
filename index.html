@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas para Vinicius</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 0.5rem;
+        }
+
+        header h1 span {
+            color: #38bdf8;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .update-date {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background: #1e293b;
+            color: #38bdf8;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .badge {
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge.other {
+            background: #475569;
+            color: #e2e8f0;
+        }
+
+        .section.fit .section-header h2 {
+            color: #38bdf8;
+        }
+
+        .section.other-section .section-header h2 {
+            color: #94a3b8;
+        }
+
+        .job-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.75rem;
+            padding: 1.2rem;
+            margin-bottom: 0.75rem;
+            transition: border-color 0.2s, transform 0.1s;
+        }
+
+        .job-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-1px);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .job-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .job-title a {
+            color: #f1f5f9;
+            text-decoration: none;
+        }
+
+        .job-title a:hover {
+            color: #38bdf8;
+            text-decoration: underline;
+        }
+
+        .job-source {
+            background: #0ea5e9;
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .job-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .job-company {
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        .job-location::before {
+            content: "\1F4CD ";
+        }
+
+        .job-posted::before {
+            content: "\1F553 ";
+        }
+
+        .empty {
+            color: #64748b;
+            font-style: italic;
+            padding: 1.5rem;
+            text-align: center;
+            background: #1e293b;
+            border-radius: 0.75rem;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+            margin-top: 0.75rem;
+        }
+
+        .profile-tag {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #1e293b;
+            color: #475569;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 640px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            .job-header {
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+            .job-details {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vagas para <span>Vinicius</span></h1>
+            <p class="subtitle">
+                Gerente Juridico &bull; Regulatorio &bull; Telecom &bull; Concorrencial
+            </p>
+            <div class="profile-tags">
+                <span class="profile-tag">Contratos</span>
+                <span class="profile-tag">ANATEL</span>
+                <span class="profile-tag">CADE</span>
+                <span class="profile-tag">Telecom</span>
+                <span class="profile-tag">Regulatorio</span>
+                <span class="profile-tag">Antitruste</span>
+
+            </div>
+            <div class="update-date">Atualizado em 31/03/2026 as 22:49</div>
+        </header>
+
+        <section class="section fit">
+            <div class="section-header">
+                <h2>Fit de Oportunidade</h2>
+                <span class="badge">16</span>
+            </div>
+            
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-jur%C3%ADdico-regulat%C3%B3rio-at-empresa-confidencial-4393599733" target="_blank" rel="noopener">Gerente Jurídico Regulatório</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Empresa Confidencial</span>
+                <span class="job-location">Manaus, AM</span>
+                <span class="job-posted">Há 8 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-jur%C3%ADdico-regulat%C3%B3rio-at-empresa-confidencial-4393904393" target="_blank" rel="noopener">Gerente Jurídico Regulatório</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Empresa Confidencial</span>
+                <span class="job-location">Rondônia, Brasil</span>
+                <span class="job-posted">Há 8 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/coordenador-jur%C3%ADdico-at-sociedade-tavola-4393297401" target="_blank" rel="noopener">Coordenador Jurídico</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Sociedade Tavola</span>
+                <span class="job-location">Guarulhos, SP</span>
+                <span class="job-posted">Há 18 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/especialista-cont%C3%A1bil-regulat%C3%B3rio-at-cielo-4381766308" target="_blank" rel="noopener">Especialista Contábil Regulatório</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Cielo</span>
+                <span class="job-location">Barueri, SP</span>
+                <span class="job-posted">Há 13 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/head-of-legal-at-inplanet-4396173418" target="_blank" rel="noopener">Head of Legal</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">InPlanet</span>
+                <span class="job-location">Brasil</span>
+                <span class="job-posted">Há 1 hora</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/auxiliar-jur%C3%ADdico-joinville-sc-at-pamplona-e-honjoya-advogados-4393550465" target="_blank" rel="noopener">Auxiliar Jurídico - Joinville/SC</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Pamplona e Honjoya Advogados</span>
+                <span class="job-location">Joinville, SC</span>
+                <span class="job-posted">Há 12 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/pessoa-coordenadora-nucleo-juridico-unidades-leme-sp-at-cogna-educa%C3%A7%C3%A3o-4381899074" target="_blank" rel="noopener">PESSOA COORDENADORA NUCLEO JURIDICO UNIDADES - LEME/SP</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Cogna Educação</span>
+                <span class="job-location">Leme, SP</span>
+                <span class="job-posted">Há 13 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/assistente-jur%C3%ADdico-execu%C3%A7%C3%B5es-at-cardoso-corr%C3%AAa-neg%C3%B3cios-4393904162" target="_blank" rel="noopener">Assistente jurídico | Execuções</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Cardoso & Corrêa Negócios</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 9 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/assistente-jur%C3%ADdico-relacionamento-at-cardoso-corr%C3%AAa-neg%C3%B3cios-4393598682" target="_blank" rel="noopener">Assistente Jurídico | Relacionamento</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Cardoso & Corrêa Negócios</span>
+                <span class="job-location">Porto Alegre, RS</span>
+                <span class="job-posted">Há 8 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/assistente-jur%C3%ADdico-at-green-llc-4395564118" target="_blank" rel="noopener">Assistente jurídico</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Green, llc</span>
+                <span class="job-location">São Paulo e Região</span>
+                <span class="job-posted">Há 23 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/assistente-jur%C3%ADdico-vaga-afirmativa-para-pessoas-com-defici%C3%AAncia-at-comm-4395860741" target="_blank" rel="noopener">Assistente Jurídico (Vaga Afirmativa para Pessoas com Deficiência)</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Comm</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 10 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/auxiliar-administrativo-juridico-at-prev-f%C3%A1cil-aposentadoria-4395559523" target="_blank" rel="noopener">Auxiliar Administrativo Juridico</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Prev Fácil Aposentadoria</span>
+                <span class="job-location">São Paulo e Região</span>
+                <span class="job-posted">Há 23 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/tax-regulatory-onboarding-administrator-at-rimini-street-4383442560" target="_blank" rel="noopener">Tax & Regulatory Onboarding Administrator</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Rimini Street Brazil</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 16 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/analista-de-csc-i-gest%C3%A3o-de-contratos-at-solar-coca-cola-4392491644" target="_blank" rel="noopener">Analista de CSC I - Gestão de contratos</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Solar Coca-Cola</span>
+                <span class="job-location">Jaboatão dos Guararapes, PE</span>
+                <span class="job-posted">Há 1 hora</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/supervisor-de-gest%C3%A3o-de-contratos-at-air-minas-ar-condicionado-ltda-4396134480" target="_blank" rel="noopener">Supervisor de Gestão de Contratos</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">AIR MINAS AR CONDICIONADO LTDA</span>
+                <span class="job-location">Belo Horizonte, MG</span>
+                <span class="job-posted">Há 6 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/analista-de-gest%C3%A3o-de-contratos-i-at-auren-energia-4393960641" target="_blank" rel="noopener">Analista de Gestão de Contratos I</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Auren Energia</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 3 horas</span>
+            </div>
+        </div>
+        </section>
+
+        <section class="section other-section">
+            <div class="section-header">
+                <h2>Outras Coisas</h2>
+                <span class="badge other">20</span>
+            </div>
+            
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/coordenador-legal-operations-transformation-lead-at-lazzo-secondment-4393556966" target="_blank" rel="noopener">Coordenador Legal Operations & Transformation Lead</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Lazzo Secondment</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 11 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/associate-general-counsel-for-faculty-affairs-and-employment-or-a-senior-associate-general-coun-at-inside-higher-ed-4393536497" target="_blank" rel="noopener">Associate General Counsel for Faculty Affairs and Employment or a Senior Associate General Coun...</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Inside Higher Ed</span>
+                <span class="job-location">Rio de Janeiro e Região</span>
+                <span class="job-posted">Há 13 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/virtual-assistant-legal-support-specialist-at-huzzle-com-4393560438" target="_blank" rel="noopener">Virtual Assistant (Legal Support Specialist)</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Huzzle.com</span>
+                <span class="job-location">Brasil</span>
+                <span class="job-posted">Há 12 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-de-neg%C3%B3cios-pessoa-jur%C3%ADdica-i-ag%C3%AAncia-jaime-lago-erechim-rs-at-sicredi-4393592970" target="_blank" rel="noopener">Gerente de Negócios Pessoa Jurídica I - Agência Jaime Lago Erechim/RS</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Sicredi</span>
+                <span class="job-location">Erechim, RS</span>
+                <span class="job-posted">Há 8 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-de-contas-pessoa-jur%C3%ADdica-i-at-banco-bradesco-4393970175" target="_blank" rel="noopener">Gerente de Contas Pessoa Jurídica I</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Bradesco</span>
+                <span class="job-location">Três de Maio, RS</span>
+                <span class="job-posted">Há 3 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/assistente-administrativo-ub%C3%A1-mg-at-mundial-acabamentos-4395558690" target="_blank" rel="noopener">Assistente Administrativo - Ubá/MG</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Mundial Acabamentos</span>
+                <span class="job-location">Brasil</span>
+                <span class="job-posted">Há 23 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/auxiliar-de-cart%C3%B3rio-i-belo-horizonte-mercado-de-trabalho-at-quorum-rh-4395644647" target="_blank" rel="noopener">Auxiliar De Cartório I - Belo Horizonte - Mercado De Trabalho</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Quorum RH</span>
+                <span class="job-location">Belo Horizonte e Região</span>
+                <span class="job-posted">Há 18 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-comercial-at-selectpark-estacionamentos-4395067752" target="_blank" rel="noopener">Gerente comercial</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">SelectPark Estacionamentos</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 5 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/analista-proj-operacoes-pl-at-orizon-valoriza%C3%A7%C3%A3o-de-res%C3%ADduos-4396173227" target="_blank" rel="noopener">ANALISTA PROJ OPERACOES PL</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Orizon Valorização de Resíduos</span>
+                <span class="job-location">Jaboatão dos Guararapes, PE</span>
+                <span class="job-posted">Há 3 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/generalista-de-pessoas-gestor-de-pessoas-de-contrato-at-vertical-braz-alpinismo-industrial-4395872759" target="_blank" rel="noopener">Generalista de Pessoas (Gestor de Pessoas de Contrato)</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Vertical Braz Alpinismo Industrial</span>
+                <span class="job-location">Araucária, PR</span>
+                <span class="job-posted">Há 7 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/analista-administrativo-de-loja-at-automob-4396177078" target="_blank" rel="noopener">ANALISTA ADMINISTRATIVO DE LOJA</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">AUTOMOB</span>
+                <span class="job-location">Goianésia, GO</span>
+                <span class="job-posted">Há 3 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-de-neg%C3%B3cios-enterprise-at-adp-4382026143" target="_blank" rel="noopener">Gerente de Negócios Enterprise</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">ADP</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 15 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-de-projetos-de-tecnologia-da-informa%C3%A7%C3%A3o-%E2%80%93-presencial-%E2%80%93-cuiab%C3%A1-mt%C2%A0%C2%A0%C2%A0-at-ibrowse-consultoria-e-inform%C3%A1tica-4396176028" target="_blank" rel="noopener">GERENTE DE PROJETOS DE TECNOLOGIA DA INFORMAÇÃO – PRESENCIAL – CUIABÁ/MT</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Ibrowse Consultoria e Informática</span>
+                <span class="job-location">Cuiabá e Região</span>
+                <span class="job-posted">Há 3 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-de-projetos-de-tecnologia-da-informa%C3%A7%C3%A3o-%E2%80%93-presencial-%E2%80%93-cuiab%C3%A1-mt%C2%A0%C2%A0%C2%A0-at-ibrowse-consultoria-e-inform%C3%A1tica-4393988534" target="_blank" rel="noopener">GERENTE DE PROJETOS DE TECNOLOGIA DA INFORMAÇÃO – PRESENCIAL – CUIABÁ/MT</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Ibrowse Consultoria e Informática</span>
+                <span class="job-location">Cuiabá, MT</span>
+                <span class="job-posted">Há 1 hora</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/executivo-de-canais-at-odoo-4393931402" target="_blank" rel="noopener">Executivo de canais</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Odoo</span>
+                <span class="job-location">Curitiba, PR</span>
+                <span class="job-posted">Há 6 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/mid-level-commercial-executive-at-getnet-4393906256" target="_blank" rel="noopener">Mid-Level Commercial Executive</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Getnet</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 8 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/especialista-seguranca-informacao-at-prudential-financial-4392427891" target="_blank" rel="noopener">ESPECIALISTA SEGURANCA INFORMACAO</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Prudential Financial</span>
+                <span class="job-location">Rio de Janeiro e Região</span>
+                <span class="job-posted">Há 9 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/analista-de-pr%C3%A9-vendas-sdr-at-aawz-4395676409" target="_blank" rel="noopener">Analista de Pré Vendas - SDR</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">AAWZ Partners</span>
+                <span class="job-location">Florianópolis, SC</span>
+                <span class="job-posted">Há 14 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/gerente-servicos-regional-sr-at-honeywell-4393259683" target="_blank" rel="noopener">Gerente Servicos Regional Sr</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">Honeywell</span>
+                <span class="job-location">Brasil</span>
+                <span class="job-posted">Há 22 horas</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <h3 class="job-title">
+                    <a href="https://br.linkedin.com/jobs/view/rca-manager-i-at-bbva-4393598908" target="_blank" rel="noopener">RCA MANAGER I</a>
+                </h3>
+                <span class="job-source">LinkedIn</span>
+            </div>
+            <div class="job-details">
+                <span class="job-company">BBVA</span>
+                <span class="job-location">São Paulo, SP</span>
+                <span class="job-posted">Há 8 horas</span>
+            </div>
+        </div>
+        </section>
+
+        <footer>
+            <p>Atualizado automaticamente via GitHub Actions</p>
+            <p style="margin-top: 0.3rem;">Fontes: LinkedIn</p>
+        </footer>
+    </div>
+</body>
+</html>
